@@ -22,9 +22,11 @@ const displayController = (() => {
         if(e.key === 'Enter' && clickCounter1 == 0){
             container.appendChild(p2);
             container.appendChild(paidAmount);
+            paidAmount.focus();
             clickCounter1++;
         }else if(e.key === 'Enter' && clickCounter1 !== 0){
             clearNotesDisplay();
+            paidAmount.focus();
             changeCalculator();
         }
     })
@@ -47,7 +49,7 @@ const displayController = (() => {
 
         const h1 = document.createElement('h2');
         h1.classList.add('remaining-amount');
-        h1.textContent = 'Amount to be returned: '+ `${notesArray[9]}`;
+        h1.textContent = 'Amount to be returned: Rs. '+ `${notesArray[9]}`;
         notesContainer.appendChild(h1);
 
         const h2 = document.createElement('h3');
@@ -61,77 +63,80 @@ const displayController = (() => {
 
         let tableDark = getComputedStyle(document.body).getPropertyValue('--tableDark');
         let tableLight = getComputedStyle(document.body).getPropertyValue('--tableLight');
+        let textDark = getComputedStyle(document.body).getPropertyValue('--textDark');
+        let textLight = getComputedStyle(document.body).getPropertyValue('--textLight');
+      
 
         for(let i = 0; i < notesArray.length-1; i++){
             
             const p2 = document.createElement('p');
             const p3 = document.createElement('p');
            
-            p2.classList.add('note');
+            p2.classList.add('denomination');
             p3.classList.add('no-of-notes');
 
 
             if(i == 0){
                 p2.textContent = '1000';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${tableLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${tableLight}`);
+                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
+                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 1){
                 p2.textContent = '500';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${tableDark}`);
-                p3.setAttribute('style',`background:${tableLight};color:${tableDark}`);  
+                p2.setAttribute('style',`background:${tableLight};color:${textDark}`);
+                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);  
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 2){
                 p2.textContent = '100';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${tableLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${tableLight}`);
+                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
+                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 3){
                 p2.textContent = '50';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${tableDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${tableDark}`);
+                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
+                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 4){
                 p2.textContent = '20';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${tableLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${tableLight}`);
+                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
+                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 5){
                 p2.textContent = '10';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${tableDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${tableDark}`);
+                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
+                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 6){
                 p2.textContent = '5';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${tableLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${tableLight}`);
+                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
+                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 7){
                 p2.textContent = '2';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${tableDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${tableDark}`);
+                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
+                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }else if(i == 8){
                 p2.textContent = '1';
                 p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${tableLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${tableLight}`);
+                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
+                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 notesContainer.appendChild(p2);
                 notesContainer.appendChild(p3);
             }
