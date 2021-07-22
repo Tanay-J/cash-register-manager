@@ -1,7 +1,5 @@
 const displayController = (() => {
     const container = document.querySelector('.container');
-    let clickCounter1 = 0;
-    let clickCounter2 = 0
 
     const p1 = document.createElement('p');
     p1.textContent = 'Enter Bill Amount';
@@ -19,32 +17,24 @@ const displayController = (() => {
     paidAmount.classList.add('amount');
 
     billAmount.addEventListener('keypress',(e) => {
-        if(e.key === 'Enter' && clickCounter1 == 0){
+        if(e.key === 'Enter'){
+            clearNotesDisplay();
             container.appendChild(p2);
             container.appendChild(paidAmount);
             paidAmount.focus();
-            clickCounter1++;
-        }else if(e.key === 'Enter' && clickCounter1 !== 0){
-            clearNotesDisplay();
-            paidAmount.focus();
-            changeCalculator();
         }
+
     })
     paidAmount.addEventListener('keypress',(e) => {
-        if(e.key === 'Enter' && clickCounter2 == 0){
-            changeCalculator();
-            clickCounter2++;
-        }else if(e.key === 'Enter' && clickCounter2 !== 0){
+        if(e.key === 'Enter'){
             clearNotesDisplay();
             changeCalculator();
-            clickCounter2++;
         }
     })
 
     const notesDisplay = (notesArray) => {
         const notesContainer = document.createElement('div');
         notesContainer.classList.add('notes-container');
-        // notesContainer.textContent = 'Amount to be returned: '+ `${notesArray[9]}`;
         container.appendChild(notesContainer);
 
         const h1 = document.createElement('h2');
@@ -145,16 +135,32 @@ const displayController = (() => {
     }
     const clearNotesDisplay = () => {
         const notesContainer = document.querySelector('.notes-container');
-        // for(let i = 0; i < 21; i++){
+        const errorMsg = document.querySelector('.error-msg');
+        if(notesContainer){            
             container.removeChild(notesContainer);
-        // }
+        }
+        if(errorMsg){
+            container.removeChild(errorMsg);
+        }
     }
-    return {billAmount,paidAmount,notesDisplay}
+    return {billAmount,paidAmount,notesDisplay,clearNotesDisplay}
 })();
 
 const changeCalculator = () => {
-    let difference = displayController.paidAmount.value - displayController.billAmount.value;
+    let difference = parseInt(displayController.paidAmount.value) - parseInt(displayController.billAmount.value);
     let notesArray = [0,0,0,0,0,0,0,0,0,difference];
+    const container = document.querySelector('.container');
+
+    if(difference < 0 || parseInt(displayController.paidAmount.value) < 0 || parseInt(displayController.billAmount.value) < 0){
+        displayController.clearNotesDisplay();
+
+        const errorMsg = document.createElement('div');
+        errorMsg.classList.add('error-msg');
+        errorMsg.textContent = 'Error: Bill amount greater than cash given'
+        
+        container.appendChild(errorMsg);
+        return;
+    }
 
     for(let i = 0; i < notesArray.length-1; i++){
         if(difference > 1000){
