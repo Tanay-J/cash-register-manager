@@ -1,34 +1,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 :root{
-    --background: black;
-    --containerBorder: gray;
-    --containerBackground: white;
+    --background: #36382E;
+    --containerBorder: #477998;
+    --containerBackground: #DADAD9;
+    --textLight: white;
+    --textDark: black;
+    --tableDark: #8D8D8D;
+    --tableLight: white;
+    --tableBackground: gray;
 }
 body{
     background-color: var(--background);
 }
 header{
     text-align: center;
-    font-family: 'Roboto', sans-serif;
-    margin: 30px auto 50px auto;
-    color: white;
+    font-family: 'Roboto', sans-serif; 
+    color: var(--containerBackground);
+    
 }
 
 .container{
-    width: 400px;
-    height: 350px;
-    border: 5px solid var(--containerBorder);
+    width: 450px;
+    height: 500px;
+    border: 15px solid var(--containerBorder);
+    border-radius: 0.5rem;
     margin: auto;
     text-align: center;
     background-color: var(--containerBackground);
     color: var(--containerBorder);
+    padding-bottom: 2rem;
 }
 
 .container input{
-    /* margin-top: 25px; */
-    /* height: 15%; */
     width: 55%;
-    border: 2px solid ;
-    font-size: 2.5rem;
+    border: 1px solid var(--containerBorder);
+    font-size: 1.5rem;
     text-align: right;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    
+}
+
+.notes-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: stretch;
+    padding: 15px;
+}
+.remaining-amount{
+    grid-column: 1/span 2 ;
+    text-align: center;
+    background-color: var(--containerBorder);
+    color: var(--textLight);
+    margin-block-end: 0;
+    padding: 0.5rem;
+}
+.table-heading{
+    margin-block-end: 0;
+    /* border: 2px solid var(--background); */
+    padding: 5px;
+    background-color: var(--containerBorder);
+    color: var(--textLight);
+
+}
+.no-of-notes{
+    border: 1px solid var(--background);
+    text-align: center;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 3px;
+    font-weight: bolder;
+}
+.denomination{
+    border: 1px solid var(--background);
+    text-align: center;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding: 3px;
+    font-weight: bolder;
 }
