@@ -1,3 +1,9 @@
+function isEven(num){
+    if(num%2 === 0){
+        return true;
+    }else return false;
+}
+
 const displayController = (() => {
     const container = document.querySelector('.container');
 
@@ -15,6 +21,7 @@ const displayController = (() => {
 
     const paidAmount = document.createElement('input');
     paidAmount.classList.add('amount');
+    paidAmount.type = 'number';
 
     billAmount.addEventListener('keypress',(e) => {
         if(e.key === 'Enter'){
@@ -33,13 +40,15 @@ const displayController = (() => {
     })
 
     const notesDisplay = (notesArray) => {
+        const denominations = [2000,500,100,20,10,5,1];
+
         const notesContainer = document.createElement('div');
         notesContainer.classList.add('notes-container');
         container.appendChild(notesContainer);
 
         const h1 = document.createElement('h2');
         h1.classList.add('remaining-amount');
-        h1.textContent = 'Amount to be returned: Rs. '+ `${notesArray[9]}`;
+        h1.textContent = 'Amount to be returned: Rs. '+ `${notesArray[7]}`;
         notesContainer.appendChild(h1);
 
         const h2 = document.createElement('h3');
@@ -65,72 +74,18 @@ const displayController = (() => {
             p2.classList.add('denomination');
             p3.classList.add('no-of-notes');
 
-
-            if(i == 0){
-                p2.textContent = '1000';
-                p3.textContent = `${notesArray[i]}`;
+            p2.textContent = denominations[i];
+            p3.textContent = notesArray[i];
+            notesContainer.appendChild(p2);
+            notesContainer.appendChild(p3);
+            if(isEven(i)){  
                 p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
                 p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 1){
-                p2.textContent = '500';
-                p3.textContent = `${notesArray[i]}`;
+
+            }else {
                 p2.setAttribute('style',`background:${tableLight};color:${textDark}`);
                 p3.setAttribute('style',`background:${tableLight};color:${textDark}`);  
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 2){
-                p2.textContent = '100';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 3){
-                p2.textContent = '50';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 4){
-                p2.textContent = '20';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 5){
-                p2.textContent = '10';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 6){
-                p2.textContent = '5';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 7){
-                p2.textContent = '2';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableLight};color:${textDark}`)
-                p3.setAttribute('style',`background:${tableLight};color:${textDark}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
-            }else if(i == 8){
-                p2.textContent = '1';
-                p3.textContent = `${notesArray[i]}`;
-                p2.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                p3.setAttribute('style',`background:${tableDark};color:${textLight}`);
-                notesContainer.appendChild(p2);
-                notesContainer.appendChild(p3);
             }
-
         }
     }
     const clearNotesDisplay = () => {
@@ -148,7 +103,8 @@ const displayController = (() => {
 
 const changeCalculator = () => {
     let difference = parseInt(displayController.paidAmount.value) - parseInt(displayController.billAmount.value);
-    let notesArray = [0,0,0,0,0,0,0,0,0,difference];
+    let notesArray = [0,0,0,0,0,0,0,difference];
+    const denominations = [2000,500,100,20,10,5,1];
     const container = document.querySelector('.container');
 
     if(difference < 0 || parseInt(displayController.paidAmount.value) < 0 || parseInt(displayController.billAmount.value) < 0){
@@ -162,34 +118,10 @@ const changeCalculator = () => {
         return;
     }
 
-    for(let i = 0; i < notesArray.length-1; i++){
-        if(difference > 1000){
-            notesArray[0] = parseInt(difference/1000);
-            difference -= notesArray[0]*1000;
-        }else if(difference > 500){
-            notesArray[1] = parseInt(difference/500);
-            difference -= notesArray[1]*500;
-        }else if(difference > 100){
-            notesArray[2] = parseInt(difference/100);
-            difference -= notesArray[2]*100;       
-        }else if(difference > 50){
-            notesArray[3] = parseInt(difference/50);
-            difference -= notesArray[3]*50;       
-        }else if(difference > 20){
-            notesArray[4] = parseInt(difference/20);
-            difference -= notesArray[4]*20;       
-        }else if(difference > 10){
-            notesArray[5] = parseInt(difference/10);
-            difference -= notesArray[5]*10;       
-        }else if(difference > 5){
-            notesArray[6] = parseInt(difference/5);
-            difference -= notesArray[6]*5;       
-        }else if(difference > 2){
-            notesArray[7] = parseInt(difference/2);
-            difference -= notesArray[7]*2;       
-        }else if(difference == 1){
-            notesArray[8] = parseInt(difference);
-            difference -= notesArray[8];     
+    for(let i = 0;i < denominations.length;i++){
+        if(difference >= denominations[i]){
+            notesArray[i] = parseInt(difference/denominations[i]);
+            difference -= notesArray[i]*denominations[i];
         }
     }
     displayController.notesDisplay(notesArray);
