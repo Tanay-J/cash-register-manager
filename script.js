@@ -7,6 +7,7 @@ function isEven(num){
 const displayController = (() => {
     const container = document.querySelector('.container');
 
+    //creating and displaying elements to take input
     const p1 = document.createElement('p');
     p1.textContent = 'Enter Bill Amount';
     container.appendChild(p1);
@@ -23,6 +24,7 @@ const displayController = (() => {
     paidAmount.classList.add('amount');
     paidAmount.type = 'number';
 
+    //adding event listeners to input elements (Checks for Enter key press)
     billAmount.addEventListener('keypress',(e) => {
         if(e.key === 'Enter'){
             clearNotesDisplay();
@@ -39,9 +41,11 @@ const displayController = (() => {
         }
     })
 
+    //displaying denominations for calculated amount
     const notesDisplay = (notesArray) => {
         const denominations = [2000,500,100,20,10,5,1];
-
+        
+        //creating the display for denominations
         const notesContainer = document.createElement('div');
         notesContainer.classList.add('notes-container');
         container.appendChild(notesContainer);
@@ -60,6 +64,7 @@ const displayController = (() => {
         notesContainer.appendChild(h2);
         notesContainer.appendChild(h3);
 
+        //different colors for alternate rows 
         let tableDark = getComputedStyle(document.body).getPropertyValue('--tableDark');
         let tableLight = getComputedStyle(document.body).getPropertyValue('--tableLight');
         let textDark = getComputedStyle(document.body).getPropertyValue('--textDark');
@@ -88,6 +93,7 @@ const displayController = (() => {
             }
         }
     }
+    //function to clear display
     const clearNotesDisplay = () => {
         const notesContainer = document.querySelector('.notes-container');
         const errorMsg = document.querySelector('.error-msg');
@@ -101,23 +107,25 @@ const displayController = (() => {
     return {billAmount,paidAmount,notesDisplay,clearNotesDisplay}
 })();
 
+//function to calculate minimum number of notes required
 const changeCalculator = () => {
     let difference = parseInt(displayController.paidAmount.value) - parseInt(displayController.billAmount.value);
-    let notesArray = [0,0,0,0,0,0,0,difference];
-    const denominations = [2000,500,100,20,10,5,1];
+    let notesArray = [0,0,0,0,0,0,0,difference]; //this array will contain number of notes required for each denomination
+    const denominations = [2000,500,100,20,10,5,1]; //denominations available
     const container = document.querySelector('.container');
 
+    //clears display and shows an error in case of invalid input
     if(difference < 0 || parseInt(displayController.paidAmount.value) < 0 || parseInt(displayController.billAmount.value) < 0){
         displayController.clearNotesDisplay();
 
         const errorMsg = document.createElement('div');
         errorMsg.classList.add('error-msg');
-        errorMsg.textContent = 'Error: Bill amount greater than cash given'
+        errorMsg.textContent = 'Error: Invalid Input'
         
         container.appendChild(errorMsg);
         return;
     }
-
+    //logic to calculate minimum number of notes required
     for(let i = 0;i < denominations.length;i++){
         if(difference >= denominations[i]){
             notesArray[i] = parseInt(difference/denominations[i]);
@@ -125,9 +133,5 @@ const changeCalculator = () => {
         }
     }
     displayController.notesDisplay(notesArray);
-   
-
     return notesArray;
 }
-
-// displayController();
